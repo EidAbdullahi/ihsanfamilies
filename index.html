@@ -4,1024 +4,267 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Ihsan Families | Somalia's Leading Digital Health Platform</title>
-  <meta name="description" content="Ihsan Families (Ihsan Care) is Somalia's first digital health platform for maternal and child care. AI, biometrics, cashless treatment, and donor-driven transparent healthcare." />
-  <meta name="keywords" content="Ihsan Families, Ihsan Care, Somalia digital health, maternal health, child healthcare, biometric healthcare, AI health systems" />
+  <title>Ihsan Care | Somalia’s Digital Health Platform for MNCH & Accountability</title>
+  <meta name="description" content="Ihsan Care (Ihsan Families) is a Somali-led LNGO revolutionizing maternal & child health through biometrics, digital records, AI monitoring, and transparent donor dashboards in Jubaland." />
+  <meta name="keywords" content="Ihsan Care, Ihsan Families, Somalia digital health, maternal health, child health, biometric verification, cashless healthcare, DHIS2, Kismayo NGO" />
   
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
+  <!-- Tailwind + base -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
           },
           colors: {
             primary: {
-              50: '#f0fdfa',
-              100: '#ccfbf1',
-              200: '#99f6e4',
-              300: '#5eead4',
-              400: '#2dd4bf',
-              500: '#14b8a6',
-              600: '#0d9488',
-              700: '#0f766e',
-              800: '#115e59',
-              900: '#134e4a',
+              50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4',
+              400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e',
+              800: '#115e59', 900: '#134e4a',
             },
             secondary: {
-              50: '#fff7ed',
-              100: '#ffedd5',
-              200: '#fed7aa',
-              300: '#fdba74',
-              400: '#fb923c',
-              500: '#f97316',
-              600: '#ea580c',
-              700: '#c2410c',
+              50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74',
+              400: '#fb923c', 500: '#f97316', 600: '#ea580c', 700: '#c2410c',
             }
           },
           animation: {
             'float': 'float 6s ease-in-out infinite',
-            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'slide-up': 'slideUp 0.6s ease-out',
             'fade-in': 'fadeIn 0.8s ease-out',
+            'slide-up': 'slideUp 0.6s ease-out',
           },
           keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-20px)' },
-            },
-            slideUp: {
-              '0%': { transform: 'translateY(30px)', opacity: '0' },
-              '100%': { transform: 'translateY(0)', opacity: '1' },
-            },
-            fadeIn: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' },
-            }
+            float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-12px)' } },
+            slideUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
           }
         }
       }
     }
   </script>
   
-  <!-- Alpine.js -->
+  <!-- Alpine.js for mobile + light interactions -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   
-  <!-- GSAP for advanced animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
   <style>
-    .glass {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    .glass-dark {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .gradient-text {
-      background: linear-gradient(135deg, #0d9488 0%, #f97316 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .mesh-gradient {
-      background-color: #0f766e;
-      background-image: 
-        radial-gradient(at 40% 20%, hsla(168, 100%, 50%, 0.3) 0px, transparent 50%),
-        radial-gradient(at 80% 0%, hsla(25, 100%, 60%, 0.3) 0px, transparent 50%),
-        radial-gradient(at 0% 50%, hsla(168, 100%, 40%, 0.3) 0px, transparent 50%);
-    }
-    .card-hover {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .card-hover:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
-      transition: all 0.3s ease;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px -10px rgba(13, 148, 136, 0.5);
-    }
-    .btn-secondary {
-      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-      transition: all 0.3s ease;
-    }
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.5);
-    }
-    .stat-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
-      backdrop-filter: blur(10px);
-    }
-    .noise {
-      position: relative;
-    }
-    .noise::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      opacity: 0.03;
-      pointer-events: none;
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
+    .mesh-bg { background: radial-gradient(circle at 10% 20%, rgba(13,148,136,0.08) 0%, rgba(249,115,22,0.03) 80%); }
+    .hover-lift { transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+    .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -12px rgba(0,0,0,0.15); }
+    .stat-number { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
+<body class="font-sans text-slate-700 antialiased overflow-x-hidden" x-data="{ mobileMenu: false, scrolled: false }" @scroll.window="scrolled = window.pageYOffset > 20">
 
-<body class="font-sans text-slate-800 antialiased overflow-x-hidden" x-data="{ mobileOpen: false, scrolled: false }" @scroll.window="scrolled = window.pageYOffset > 20">
-
-  <!-- Navigation -->
-  <nav :class="scrolled ? 'glass shadow-lg' : 'bg-transparent'" class="fixed w-full z-50 transition-all duration-500 top-0">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <!-- Logo -->
-        <a href="#" class="flex items-center gap-3 group">
-          <div class="relative">
-            <div class="absolute inset-0 bg-primary-500 rounded-full blur-lg opacity-40 group-hover:opacity-60 transition"></div>
-            <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1769957042/ChatGPT_Image_Feb_1_2026_06_27_22_AM_fojeui.png" 
-                 class="h-12 w-12 object-contain relative z-10" alt="Ihsan Care">
-          </div>
-          <span class="font-bold text-xl tracking-tight" :class="scrolled ? 'text-slate-800' : 'text-white'">
-            Ihsan<span class="text-primary-500">Care</span>
-          </span>
-        </a>
-
-        <!-- Desktop Menu -->
-        <div class="hidden lg:flex items-center gap-8">
-          <a href="#about" class="text-sm font-medium hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">About</a>
-          <a href="#services" class="text-sm font-medium hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Services</a>
-          <a href="#impact" class="text-sm font-medium hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Impact</a>
-          <a href="#team" class="text-sm font-medium hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Team</a>
-          <a href="#contact" class="text-sm font-medium hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Contact</a>
-          
-          <a href="#donate" class="btn-secondary text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg">
-            Support Us
-          </a>
-        </div>
-
-        <!-- Mobile Toggle -->
-        <button @click="mobileOpen = !mobileOpen" class="lg:hidden p-2" :class="scrolled ? 'text-slate-800' : 'text-white'">
-          <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
+  <!-- ==================== HEADER / NAVIGATION ==================== -->
+  <nav :class="scrolled ? 'bg-white/90 shadow-md backdrop-blur-md border-b border-slate-100' : 'bg-transparent'" class="fixed top-0 w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-4 flex justify-between items-center">
+      <a href="#" class="flex items-center gap-3">
+        <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1769957042/ChatGPT_Image_Feb_1_2026_06_27_22_AM_fojeui.png" class="h-11 w-11 object-contain" alt="Ihsan Care logo">
+        <span class="font-bold text-xl tracking-tight" :class="scrolled ? 'text-slate-800' : 'text-white'">Ihsan<span class="text-primary-600">Care</span></span>
+      </a>
+      
+      <!-- desktop -->
+      <div class="hidden lg:flex items-center gap-7">
+        <a href="#about" class="text-sm font-semibold hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">About</a>
+        <a href="#programs" class="text-sm font-semibold hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Programs</a>
+        <a href="#digital-health" class="text-sm font-semibold hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Digital Health</a>
+        <a href="#impact" class="text-sm font-semibold hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Impact</a>
+        <a href="#partners" class="text-sm font-semibold hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Partners</a>
+        <a href="#contact" class="text-sm font-semibold hover:text-primary-600 transition" :class="scrolled ? 'text-slate-700' : 'text-white/90'">Contact</a>
+        <a href="#donate" class="bg-secondary-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-md hover:bg-secondary-600 transition">Support Pilot</a>
       </div>
+      
+      <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2" :class="scrolled ? 'text-slate-800' : 'text-white'">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
     </div>
-
-    <!-- Mobile Menu -->
-    <div x-show="mobileOpen" 
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 -translate-y-4"
-         x-transition:enter-end="opacity-100 translate-y-0"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="opacity-100 translate-y-0"
-         x-transition:leave-end="opacity-0 -translate-y-4"
-         class="lg:hidden glass border-t border-slate-200">
-      <div class="px-6 py-4 space-y-3">
-        <a @click="mobileOpen = false" href="#about" class="block py-2 text-slate-700 font-medium">About</a>
-        <a @click="mobileOpen = false" href="#services" class="block py-2 text-slate-700 font-medium">Services</a>
-        <a @click="mobileOpen = false" href="#impact" class="block py-2 text-slate-700 font-medium">Impact</a>
-        <a @click="mobileOpen = false" href="#team" class="block py-2 text-slate-700 font-medium">Team</a>
-        <a @click="mobileOpen = false" href="#contact" class="block py-2 text-slate-700 font-medium">Contact</a>
-        <a @click="mobileOpen = false" href="#donate" class="block w-full text-center btn-secondary text-white py-3 rounded-xl font-semibold mt-4">Support Us</a>
+    
+    <!-- mobile -->
+    <div x-show="mobileMenu" x-transition.duration.300ms class="lg:hidden bg-white/95 backdrop-blur-lg border-b border-slate-200 shadow-xl">
+      <div class="px-5 py-4 flex flex-col gap-3">
+        <a @click="mobileMenu=false" href="#about" class="py-2 font-medium text-slate-800">About</a>
+        <a @click="mobileMenu=false" href="#programs" class="py-2 font-medium text-slate-800">Programs</a>
+        <a @click="mobileMenu=false" href="#digital-health" class="py-2 font-medium text-slate-800">Digital Health</a>
+        <a @click="mobileMenu=false" href="#impact" class="py-2 font-medium text-slate-800">Impact</a>
+        <a @click="mobileMenu=false" href="#partners" class="py-2 font-medium text-slate-800">Partners</a>
+        <a @click="mobileMenu=false" href="#contact" class="py-2 font-medium text-slate-800">Contact</a>
+        <a @click="mobileMenu=false" href="#donate" class="bg-secondary-500 text-white text-center py-2 rounded-full font-bold">Support Pilot</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="relative min-h-screen flex items-center mesh-gradient noise overflow-hidden">
-    <!-- Animated Background Elements -->
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 -right-40 w-96 h-96 bg-secondary-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
-      <div class="absolute top-1/2 -left-20 w-72 h-72 bg-primary-400/20 rounded-full blur-3xl animate-float"></div>
-      <div class="absolute bottom-20 right-1/4 w-64 h-64 bg-white/10 rounded-full blur-2xl"></div>
-    </div>
-
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative min-h-screen flex items-center bg-gradient-to-br from-primary-800 via-primary-700 to-slate-900 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1600')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+    <div class="absolute top-20 left-10 w-72 h-72 rounded-full bg-secondary-500/20 blur-3xl"></div>
+    <div class="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-primary-400/20 blur-3xl"></div>
     <div class="relative max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-2 gap-12 items-center">
-      <!-- Content -->
-      <div class="space-y-8 animate-slide-up">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium">
-          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-          Now serving Jubaland, Somalia
+      <div class="space-y-6 animate-slide-up">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur text-sm font-semibold border border-white/20">✨ Somali-led LNGO | Jubaland since 2025</span>
+        <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight">Strengthening Health Systems Through <span class="text-secondary-300">Digital Innovation</span></h1>
+        <p class="text-lg text-white/80 max-w-lg">Biometric verification • Cashless access • Real-time dashboards for donors • Maternal, Newborn & Child Health (MNCH)</p>
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a href="#digital-health" class="bg-secondary-500 hover:bg-secondary-600 px-7 py-3.5 rounded-full font-bold shadow-xl transition">Explore Platform</a>
+          <a href="#contact" class="border-2 border-white/30 hover:bg-white/10 px-7 py-3.5 rounded-full font-semibold transition">Partner with us</a>
         </div>
-        
-        <h1 class="text-5xl lg:text-7xl font-extrabold text-white leading-tight">
-          Healthcare
-          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-secondary-300 to-secondary-500">
-            Reimagined
-          </span>
-        </h1>
-        
-        <p class="text-xl text-white/80 max-w-lg leading-relaxed">
-          Somalia's first AI-powered digital health platform. Biometric verification, 
-          cashless care, and transparent donor systems for maternal & child health.
-        </p>
-        
-        <div class="flex flex-wrap gap-4">
-          <a href="#contact" class="btn-secondary text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl inline-flex items-center gap-2">
-            Partner With Us
-            <i data-lucide="arrow-right" class="w-5 h-5"></i>
-          </a>
-          <a href="#about" class="px-8 py-4 rounded-full font-bold text-lg border-2 border-white/30 text-white hover:bg-white/10 transition backdrop-blur-sm">
-            Learn More
-          </a>
-        </div>
-
-        <!-- Stats Preview -->
-        <div class="flex gap-8 pt-4">
-          <div>
-            <div class="text-3xl font-bold text-white">1,000+</div>
-            <div class="text-white/60 text-sm">Lives Impacted</div>
-          </div>
-          <div class="w-px bg-white/20"></div>
-          <div>
-            <div class="text-3xl font-bold text-white">Zero</div>
-            <div class="text-white/60 text-sm">Fraud Incidents</div>
-          </div>
-          <div class="w-px bg-white/20"></div>
-          <div>
-            <div class="text-3xl font-bold text-white">AI</div>
-            <div class="text-white/60 text-sm">Powered</div>
-          </div>
+        <div class="flex gap-6 pt-5">
+          <div><div class="text-3xl font-bold">4,500+</div><div class="text-white/60 text-sm">Households reached</div></div>
+          <div class="w-px bg-white/30"></div>
+          <div><div class="text-3xl font-bold">0%</div><div class="text-white/60 text-sm">Fraud (biometric layer)</div></div>
         </div>
       </div>
-
-      <!-- Hero Image/Visual -->
       <div class="relative hidden lg:block">
-        <div class="relative z-10 animate-float">
-          <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1770070723/ChatGPT_Image_Feb_3_2026_01_18_18_AM_lmig8i.jpg" 
-               alt="Healthcare Innovation" 
-               class="rounded-3xl shadow-2xl border-4 border-white/20 w-full object-cover h-[600px]">
-          
-          <!-- Floating Stats Card -->
-          <div class="absolute -bottom-6 -left-6 stat-card p-6 rounded-2xl shadow-2xl border border-white/50">
-            <div class="flex items-center gap-3 mb-2">
-              <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-                <i data-lucide="shield-check" class="w-5 h-5 text-primary-600"></i>
-              </div>
-              <span class="font-bold text-slate-800">Verified Care</span>
-            </div>
-            <p class="text-sm text-slate-600">Biometric patient verification ensures accurate treatment delivery</p>
-          </div>
-
-          <!-- Another Floating Element -->
-          <div class="absolute -top-6 -right-6 stat-card p-4 rounded-2xl shadow-2xl border border-white/50">
-            <div class="flex items-center gap-2">
-              <i data-lucide="activity" class="w-5 h-5 text-secondary-500"></i>
-              <span class="font-semibold text-slate-800 text-sm">Real-time Monitoring</span>
-            </div>
-          </div>
+        <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1770070723/ChatGPT_Image_Feb_3_2026_01_18_18_AM_lmig8i.jpg" alt="Digital health consultation" class="rounded-3xl shadow-2xl border-4 border-white/20 object-cover h-[500px] w-full">
+        <div class="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur p-4 rounded-2xl shadow-xl">
+          <div class="flex items-center gap-2 text-slate-800"><i data-lucide="shield-check" class="text-primary-600 w-5 h-5"></i><span class="font-bold">Accountable care</span></div>
+          <p class="text-xs text-slate-500">Biometric verification ensures transparency</p>
         </div>
-        
-        <!-- Decorative Ring -->
-        <div class="absolute inset-0 border-2 border-white/10 rounded-3xl transform rotate-3 scale-105"></div>
       </div>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-      <i data-lucide="chevron-down" class="w-6 h-6 text-white/60"></i>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-24 bg-slate-50 relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-200 to-transparent"></div>
-    
+  <!-- ==================== ABOUT / ORGANIZATION OVERVIEW ==================== -->
+  <section id="about" class="py-20 bg-slate-50">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <!-- Image Side -->
-        <div class="relative reveal">
-          <div class="absolute -inset-4 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-3xl opacity-20 blur-2xl"></div>
-          <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1769957042/ChatGPT_Image_Feb_1_2026_06_27_22_AM_fojeui.png" 
-               alt="Ihsan Care Platform" 
-               class="relative rounded-3xl shadow-2xl w-full">
-          
-          <!-- Experience Badge -->
-          <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-slate-100">
-            <div class="text-4xl font-bold gradient-text">2025</div>
-            <div class="text-slate-600 text-sm">Founded</div>
-          </div>
-        </div>
-
-        <!-- Content Side -->
-        <div class="space-y-6 reveal">
-          <span class="text-primary-600 font-semibold tracking-wider uppercase text-sm">About Us</span>
-          <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-            Pioneering Digital Health in <span class="gradient-text">Somalia</span>
-          </h2>
-          
-          <p class="text-lg text-slate-600 leading-relaxed">
-            Ihsan Care is revolutionizing healthcare delivery through cutting-edge technology. 
-            We combine biometric identity verification, AI-powered risk assessment, and transparent 
-            financial systems to ensure every mother and child receives the care they deserve.
-          </p>
-
-          <div class="grid sm:grid-cols-2 gap-6 pt-4">
-            <div class="flex gap-4">
-              <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i data-lucide="target" class="w-6 h-6 text-primary-600"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-slate-900 mb-1">Our Mission</h3>
-                <p class="text-sm text-slate-600">Transform maternal & child health through digital transparency and biometric verification.</p>
-              </div>
-            </div>
-            
-            <div class="flex gap-4">
-              <div class="w-12 h-12 bg-secondary-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i data-lucide="eye" class="w-6 h-6 text-secondary-600"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-slate-900 mb-1">Our Vision</h3>
-                <p class="text-sm text-slate-600">Every mother and child empowered by secure, accountable digital health intelligence.</p>
-              </div>
-            </div>
-          </div>
-
-          <a href="#services" class="inline-flex items-center gap-2 text-primary-600 font-semibold hover:gap-4 transition-all">
-            Explore Our Platform <i data-lucide="arrow-right" class="w-5 h-5"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services/Platform Section -->
-  <section id="services" class="py-24 bg-white relative">
-    <div class="max-w-7xl mx-auto px-6">
-      <!-- Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 text-primary-700 text-sm font-semibold mb-4">
-          <i data-lucide="cpu" class="w-4 h-4"></i>
-          National Digital Health Infrastructure
-        </span>
-        <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-          Rebuilding Somalia's <span class="gradient-text">Health System</span>
-        </h2>
-        <p class="text-lg text-slate-600">
-          A unified biometric identity layer, AI-powered risk detection, and real-time national dashboards 
-          designed to reduce mortality and eliminate fraud.
-        </p>
-      </div>
-
-      <!-- Challenges Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        <div class="card-hover bg-gradient-to-br from-red-50 to-white p-6 rounded-2xl border border-red-100 reveal">
-          <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-red-600 font-bold text-xl">1</span>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">Teenage Pregnancy Crisis</h3>
-          <p class="text-sm text-slate-600">High adolescent pregnancy increases maternal deaths and poverty cycles.</p>
-        </div>
-
-        <div class="card-hover bg-gradient-to-br from-orange-50 to-white p-6 rounded-2xl border border-orange-100 reveal">
-          <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-orange-600 font-bold text-xl">2</span>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">Maternal Mortality</h3>
-          <p class="text-sm text-slate-600">Limited antenatal care infrastructure places mothers at serious risk.</p>
-        </div>
-
-        <div class="card-hover bg-gradient-to-br from-yellow-50 to-white p-6 rounded-2xl border border-yellow-100 reveal">
-          <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-yellow-600 font-bold text-xl">3</span>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">Child Malnutrition</h3>
-          <p class="text-sm text-slate-600">Preventable illnesses threaten children under five across the region.</p>
-        </div>
-
-        <div class="card-hover bg-gradient-to-br from-primary-50 to-white p-6 rounded-2xl border border-primary-100 reveal">
-          <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-primary-600 font-bold text-xl">4</span>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">Weak Data Systems</h3>
-          <p class="text-sm text-slate-600">Paper-based systems delay outbreak detection and limit transparency.</p>
-        </div>
-      </div>
-
-      <!-- Dashboard Preview -->
-      <div class="relative reveal">
-        <div class="absolute -inset-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-3xl blur opacity-20"></div>
-        <div class="relative bg-slate-900 rounded-3xl overflow-hidden shadow-2xl">
-          <div class="flex items-center gap-2 px-4 py-3 bg-slate-800 border-b border-slate-700">
-            <div class="flex gap-1.5">
-              <div class="w-3 h-3 rounded-full bg-red-500"></div>
-              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div class="w-3 h-3 rounded-full bg-green-500"></div>
-            </div>
-            <span class="text-slate-400 text-sm ml-4">Ihsan Care Dashboard</span>
-          </div>
-          <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1770898166/ChatGPT_Image_Feb_12_2026_03_04_37_PM_1_fjb133.png" 
-               alt="Digital Health Dashboard" 
-               class="w-full object-cover hover:scale-105 transition duration-700">
-          
-          <!-- Overlay CTA -->
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end justify-center pb-8">
-            <button onclick="openModal()" class="bg-white text-slate-900 px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-primary-50 transition shadow-lg">
-              <i data-lucide="maximize-2" class="w-5 h-5"></i>
-              View Full System
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Impact Stats Section -->
-  <section id="impact" class="py-24 bg-slate-900 text-white relative overflow-hidden noise">
-    <div class="absolute inset-0 bg-gradient-to-br from-primary-900/50 to-slate-900"></div>
-    <div class="absolute top-0 right-0 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl"></div>
-    
-    <div class="relative max-w-7xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <!-- Stats -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="reveal">
-          <span class="text-secondary-400 font-semibold tracking-wider uppercase text-sm">Our Impact</span>
-          <h2 class="text-4xl lg:text-5xl font-bold mt-4 mb-8">Ambitious Targets for <span class="text-secondary-400">2026</span></h2>
-          
-          <div class="grid sm:grid-cols-2 gap-6">
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl card-hover">
-              <div class="text-4xl font-bold text-secondary-400 mb-2 counter" data-target="1000">0</div>
-              <div class="text-white/80">Beneficiaries Enrolled</div>
-            </div>
-            
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl card-hover">
-              <div class="text-4xl font-bold text-secondary-400 mb-2">5-10</div>
-              <div class="text-white/80">Clinics Connected</div>
-            </div>
-            
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl card-hover">
-              <div class="text-4xl font-bold text-secondary-400 mb-2 counter" data-target="0">0</div>
-              <div class="text-white/80">Fraud Attempts</div>
-            </div>
-            
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl card-hover">
-              <div class="text-4xl font-bold text-secondary-400 mb-2">1</div>
-              <div class="text-white/80">Region Covered</div>
-            </div>
+          <div class="relative">
+            <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1769957042/ChatGPT_Image_Feb_1_2026_06_27_22_AM_fojeui.png" alt="Ihsan Care Platform" class="rounded-2xl shadow-xl w-full max-w-md mx-auto">
+            <div class="absolute -bottom-5 -right-5 bg-white rounded-xl p-4 shadow-lg border"><span class="text-3xl font-bold gradient-text">2025</span><br><span class="text-sm">Founded</span></div>
           </div>
         </div>
-
-        <!-- Video -->
-        <div class="reveal">
-          <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-            <div class="aspect-video bg-slate-800 relative">
-              <iframe 
-                src="https://www.facebook.com/plugins/video.php?height=316&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1152102189587993%2F&show_text=false&width=560&t=0"
-                class="absolute inset-0 w-full h-full"
-                style="border:none;overflow:hidden"
-                scrolling="no"
-                frameborder="0"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                allowfullscreen>
-              </iframe>
-            </div>
-          </div>
-          <p class="text-center text-white/60 text-sm mt-4">*Targets represent pilot and first deployment phase goals</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pilot Project Section -->
-  <section id="pilot" class="py-24 bg-gradient-to-b from-slate-50 to-white">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16 reveal">
-        <span class="text-primary-600 font-semibold tracking-wider uppercase text-sm">Pilot Project</span>
-        <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mt-4">Jubaland Initiative</h2>
-        <p class="text-lg text-slate-600 mt-4 max-w-2xl mx-auto">
-          A youth-led demonstration of scalable, transparent digital health solutions for mothers and children.
-        </p>
-      </div>
-
-      <div class="grid lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 space-y-6 reveal">
-          <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 card-hover">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i data-lucide="map-pin" class="w-6 h-6 text-primary-600"></i>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Location</h3>
-                <p class="text-slate-600">Kismayo & surrounding districts in Jubaland State, Somalia</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 card-hover">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-secondary-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i data-lucide="users" class="w-6 h-6 text-secondary-600"></i>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Beneficiaries</h3>
-                <p class="text-slate-600">500-1,000 mothers and children with digital registration and biometric verification</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 card-hover">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i data-lucide="clock" class="w-6 h-6 text-green-600"></i>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Duration</h3>
-                <p class="text-slate-600">6-12 months with comprehensive monitoring and evaluation</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="reveal">
-          <div class="bg-gradient-to-br from-primary-600 to-primary-700 p-8 rounded-3xl shadow-2xl text-white h-full flex flex-col justify-between">
-            <div>
-              <h3 class="text-2xl font-bold mb-4">Join the Pilot</h3>
-              <p class="text-primary-100 mb-6">
-                We are actively seeking donors, sponsors, and partners to help scale this initiative across Somalia.
-              </p>
-              <ul class="space-y-3 mb-8">
-                <li class="flex items-center gap-2 text-sm">
-                  <i data-lucide="check-circle" class="w-5 h-5 text-secondary-400"></i>
-                  Real-time impact tracking
-                </li>
-                <li class="flex items-center gap-2 text-sm">
-                  <i data-lucide="check-circle" class="w-5 h-5 text-secondary-400"></i>
-                  Transparent fund allocation
-                </li>
-                <li class="flex items-center gap-2 text-sm">
-                  <i data-lucide="check-circle" class="w-5 h-5 text-secondary-400"></i>
-                  Biometric verification
-                </li>
-              </ul>
-            </div>
-            <a href="#contact" class="btn-secondary text-white px-6 py-4 rounded-xl font-bold text-center shadow-lg">
-              Support the Pilot
-            </a>
+        <div class="reveal space-y-5">
+          <span class="text-primary-600 font-bold tracking-wide uppercase text-sm">Organization overview</span>
+          <h2 class="text-4xl font-bold text-slate-900">Somali-led NGO for Health Systems Strengthening</h2>
+          <p class="text-slate-600">Headquartered in <strong>Kismayo, Somalia</strong>, Ihsan Care integrates digital health, MNCH, capacity building, and community outreach to bridge systemic gaps. Our focus includes biometric registration, electronic health records, and donor transparency dashboards — delivering measurable impact in fragile settings.</p>
+          <div class="grid sm:grid-cols-2 gap-4 pt-3">
+            <div><i data-lucide="target" class="w-5 h-5 text-primary-600 inline mr-2"></i> <span class="font-semibold">Vision:</span> Resilient, empowered communities & equitable healthcare</div>
+            <div><i data-lucide="flag" class="w-5 h-5 text-primary-600 inline mr-2"></i> <span class="font-semibold">Mission:</span> Digital solutions + capacity building + accountable systems</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Partners Section -->
-  <section class="py-24 bg-white">
+  <!-- ==================== SECTORS & CORE OBJECTIVES ==================== -->
+  <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16 reveal">
-        <h2 class="text-3xl font-bold text-slate-900">Engagement in Progress</h2>
-        <p class="text-slate-600 mt-4">Collaborating with national and international institutions</p>
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <h3 class="text-3xl font-bold text-slate-900">Sector Focus & Strategic Objectives</h3>
+        <p class="text-slate-600 mt-2">Digital health, MNCH, institutional capacity, research & community behaviour change</p>
       </div>
-
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="group p-6 rounded-2xl border border-slate-200 hover:border-primary-300 hover:shadow-xl transition-all duration-300 reveal">
-          <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-            <i data-lucide="globe" class="w-6 h-6 text-blue-600"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">UNICEF</h3>
-          <p class="text-sm text-slate-600">Exploratory engagement for program support and pilot deployment</p>
-        </div>
-
-        <div class="group p-6 rounded-2xl border border-slate-200 hover:border-primary-300 hover:shadow-xl transition-all duration-300 reveal">
-          <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-            <i data-lucide="building-2" class="w-6 h-6 text-green-600"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">Somali Ministry of Health</h3>
-          <p class="text-sm text-slate-600">Partnership on policy alignment and national health standards</p>
-        </div>
-
-        <div class="group p-6 rounded-2xl border border-slate-200 hover:border-primary-300 hover:shadow-xl transition-all duration-300 reveal">
-          <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-            <i data-lucide="heart-handshake" class="w-6 h-6 text-purple-600"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">International Donors</h3>
-          <p class="text-sm text-slate-600">Funding and strategic support for digital health initiatives</p>
-        </div>
-
-        <div class="group p-6 rounded-2xl border border-slate-200 hover:border-primary-300 hover:shadow-xl transition-all duration-300 reveal">
-          <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-            <i data-lucide="shield" class="w-6 h-6 text-orange-600"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">Regional Health Insurers</h3>
-          <p class="text-sm text-slate-600">Biometric verification and claims integration</p>
-        </div>
-
-        <div class="group p-6 rounded-2xl border border-slate-200 hover:border-primary-300 hover:shadow-xl transition-all duration-300 reveal">
-          <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-            <i data-lucide="network" class="w-6 h-6 text-teal-600"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">Private Health Networks</h3>
-          <p class="text-sm text-slate-600">Connecting clinics and enhancing patient care quality</p>
-        </div>
-
-        <div class="group p-6 rounded-2xl border border-slate-200 hover:border-primary-300 hover:shadow-xl transition-all duration-300 reveal">
-          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-            <i data-lucide="cpu" class="w-6 h-6 text-indigo-600"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 mb-2">Global Digital Health Partners</h3>
-          <p class="text-sm text-slate-600">Technical support for scaling digital solutions</p>
-        </div>
+        <div class="bg-primary-50/40 p-6 rounded-2xl border-l-4 border-primary-500 reveal"><i data-lucide="microchip" class="w-7 h-7 text-primary-600 mb-3"></i><h4 class="font-bold text-lg">Digital Health & HMIS</h4><p class="text-sm">Biometric verification, electronic records, DHIS2 training, real-time dashboards.</p></div>
+        <div class="bg-secondary-50/40 p-6 rounded-2xl border-l-4 border-secondary-500 reveal"><i data-lucide="baby" class="w-7 h-7 text-secondary-600 mb-3"></i><h4 class="font-bold text-lg">Maternal, Newborn & Child Health</h4><p class="text-sm">Essential MNCH services, nutrition, outreach, and behaviour change communication.</p></div>
+        <div class="bg-slate-100 p-6 rounded-2xl border-l-4 border-slate-500 reveal"><i data-lucide="book-open" class="w-7 h-7 text-slate-600 mb-3"></i><h4 class="font-bold text-lg">Capacity Building</h4><p class="text-sm">Training midwives, CHWs, M&E systems, project planning & NGO institutional strengthening.</p></div>
+        <div class="bg-emerald-50/40 p-6 rounded-2xl border-l-4 border-emerald-500 reveal"><i data-lucide="users" class="w-7 h-7 text-emerald-600 mb-3"></i><h4 class="font-bold text-lg">Community Outreach & BCC</h4><p class="text-sm">Health education, hygiene promotion, adolescent reproductive health, TOT programs.</p></div>
+        <div class="bg-amber-50/40 p-6 rounded-2xl border-l-4 border-amber-500 reveal"><i data-lucide="bar-chart-3" class="w-7 h-7 text-amber-600 mb-3"></i><h4 class="font-bold text-lg">Research, Data & Innovation</h4><p class="text-sm">Baseline surveys, operational research, mobile health (mHealth) pilots, data analytics.</p></div>
+        <div class="bg-blue-50/40 p-6 rounded-2xl border-l-4 border-blue-500 reveal"><i data-lucide="droplets" class="w-7 h-7 text-blue-600 mb-3"></i><h4 class="font-bold text-lg">Integrated Development (WASH/Nutrition)</h4><p class="text-sm">WASH integration, nutrition support, primary healthcare infrastructure & emergency response.</p></div>
       </div>
-
-      <p class="text-center text-xs text-slate-400 mt-8 max-w-2xl mx-auto">
-        *Listed institutions reflect ongoing discussions and expressions of interest. Formal partnerships subject to signed agreements.
-      </p>
     </div>
   </section>
 
-  <!-- Team Section -->
-  <section id="team" class="py-24 bg-slate-50">
+  <!-- ==================== DIGITAL HEALTH FOR ACCOUNTABILITY (FLAGSHIP) ==================== -->
+  <section id="digital-health" class="py-20 bg-gradient-to-br from-primary-900 to-primary-800 text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg...%3E')] opacity-10"></div>
+    <div class="relative max-w-7xl mx-auto px-6 text-center">
+      <div class="reveal"><span class="bg-white/20 px-4 py-1 rounded-full text-sm font-bold">Flagship Approach</span><h2 class="text-4xl lg:text-5xl font-bold mt-4">Digital Health for Accountability & Transparency</h2><p class="text-primary-100 text-lg max-w-3xl mx-auto mt-4">Practical, low-resource model for fragile settings — combining biometrics, cashless care, and donor dashboards.</p></div>
+      <div class="grid md:grid-cols-4 gap-6 mt-12">
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-6 reveal"><i data-lucide="fingerprint" class="w-8 h-8 text-secondary-300 mb-3 mx-auto"></i><h4 class="font-bold text-xl">Biometric Verification</h4><p class="text-sm text-primary-100">Ensures services reach intended beneficiaries – eliminate fraud & duplication.</p></div>
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-6 reveal"><i data-lucide="credit-card" class="w-8 h-8 text-secondary-300 mb-3 mx-auto"></i><h4 class="font-bold text-xl">Cashless Healthcare</h4><p class="text-sm text-primary-100">Removes financial barriers, secure digital payments & entitlements.</p></div>
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-6 reveal"><i data-lucide="layout-dashboard" class="w-8 h-8 text-secondary-300 mb-3 mx-auto"></i><h4 class="font-bold text-xl">Donor Transparency Dashboard</h4><p class="text-sm text-primary-100">Real-time insights on program performance & fund utilization.</p></div>
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-6 reveal"><i data-lucide="database" class="w-8 h-8 text-secondary-300 mb-3 mx-auto"></i><h4 class="font-bold text-xl">Digital Beneficiary Registry</h4><p class="text-sm text-primary-100">Secure electronic profiles for improved service tracking & continuity of care.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROGRAMS & SERVICES (exhaustive from PDF) ==================== -->
+  <section id="programs" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16 reveal">
-        <span class="text-primary-600 font-semibold tracking-wider uppercase text-sm">Our Team</span>
-        <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mt-4">Meet the Visionaries</h2>
-        <p class="text-lg text-slate-600 mt-4">Passionate leaders driving healthcare transformation</p>
+      <div class="text-center reveal mb-12"><h2 class="text-3xl md:text-4xl font-bold text-slate-900">Our Programs & Services</h2><p class="text-slate-600 mt-2">Covering 6 core areas from digital systems to community resilience</p></div>
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="bg-slate-50 p-7 rounded-2xl shadow-sm reveal"><h3 class="text-2xl font-bold flex items-center gap-2"><i data-lucide="server" class="text-primary-600"></i>1. Digital Health & Healthcare Systems</h3><ul class="mt-3 space-y-2 text-slate-700 list-disc pl-5"><li>Digital beneficiary registration & biometric verification</li><li>Cashless healthcare access solutions</li><li>Electronic health records (EHR) & tracking systems</li><li>Real-time data dashboards for donors/partners</li><li>Health facility digitalization & HMIS support</li></ul></div>
+        <div class="bg-slate-50 p-7 rounded-2xl shadow-sm reveal"><h3 class="text-2xl font-bold flex items-center gap-2"><i data-lucide="graduation-cap" class="text-secondary-600"></i>2. Capacity Building & Institutional Strengthening</h3><ul class="mt-3 space-y-2 list-disc pl-5"><li>Training for midwives, nurses, CHWs</li><li>Health Information Systems (DHIS2) training</li><li>M&E systems development & data management</li><li>Project planning, NGO & government capacity strengthening</li></ul></div>
+        <div class="bg-slate-50 p-7 rounded-2xl shadow-sm reveal"><h3 class="text-2xl font-bold flex items-center gap-2"><i data-lucide="book" class="text-primary-600"></i>3. Health Education & Community Learning</h3><ul class="mt-3 space-y-2 list-disc pl-5"><li>Community health education (MNCH, nutrition, hygiene)</li><li>School-based health awareness & adolescent reproductive health</li><li>Adult literacy linked to health awareness</li><li>Digital literacy for HCWs & Training of Trainers (ToT)</li></ul></div>
+        <div class="bg-slate-50 p-7 rounded-2xl shadow-sm reveal"><h3 class="text-2xl font-bold flex items-center gap-2"><i data-lucide="heart-handshake" class="text-secondary-600"></i>4. Outreach & Behavior Change</h3><ul class="mt-3 space-y-2 list-disc pl-5"><li>Community mobilization, health campaigns</li><li>Behavior Change Communication (BCC) strategies</li><li>Nutrition & hygiene promotion, outreach for underserved populations</li></ul></div>
       </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="group reveal">
-          <div class="relative overflow-hidden rounded-3xl bg-white shadow-lg">
-            <div class="aspect-[4/5] overflow-hidden">
-              <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1771590360/WhatsApp_Image_2026-02-20_at_15.20.33_eiia6p.jpg" 
-                   alt="Eid Abdullahi" 
-                   class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition duration-300">
-              <h3 class="text-xl font-bold">Eid Abdullahi</h3>
-              <p class="text-primary-300">Founder & CEO</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="group reveal">
-          <div class="relative overflow-hidden rounded-3xl bg-white shadow-lg">
-            <div class="aspect-[4/5] overflow-hidden">
-              <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1770478513/Screenshot_from_2026-02-07_18-34-50_amlzki.png" 
-                   alt="Zakaria Abdikar" 
-                   class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition duration-300">
-              <h3 class="text-xl font-bold">Zakaria Abdikar</h3>
-              <p class="text-primary-300">ICT Lead</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="group reveal">
-          <div class="relative overflow-hidden rounded-3xl bg-white shadow-lg">
-            <div class="aspect-[4/5] overflow-hidden">
-              <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1770478736/Screenshot_from_2026-02-07_18-38-36_m9fyjb.png" 
-                   alt="Rukia Jamac" 
-                   class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition duration-300">
-              <h3 class="text-xl font-bold">Rukia Jamac</h3>
-              <p class="text-primary-300">Operations Lead</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="group reveal">
-          <div class="relative overflow-hidden rounded-3xl bg-white shadow-lg">
-            <div class="aspect-[4/5] overflow-hidden">
-              <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1771928781/eng_dubad_hfwntl.jpg" 
-                   alt="Abdimalik Bashir" 
-                   class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition duration-300">
-              <h3 class="text-xl font-bold">Eng Abdi Hussein</h3>
-              <p class="text-primary-300">Program Director</p>
-            </div>
-          </div>
-        </div>
+      <div class="grid md:grid-cols-2 gap-6 mt-6">
+        <div class="bg-slate-50 p-7 rounded-2xl reveal"><h3 class="text-2xl font-bold"><i data-lucide="chart-line"></i> 5. Research, Data & Innovation</h3><p class="mt-2">Baseline surveys, needs assessments, health data analytics, operational research in digital health, mHealth pilots, biometric system pilots.</p></div>
+        <div class="bg-slate-50 p-7 rounded-2xl reveal"><h3 class="text-2xl font-bold"><i data-lucide="droplets"></i> 6. Integrated Development Support</h3><p class="mt-2">WASH integration, nutrition support, primary healthcare infrastructure, emergency & humanitarian response.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-24 bg-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary-50 to-transparent"></div>
-    
-    <div class="relative max-w-7xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16">
-        <!-- Contact Info -->
-        <div class="reveal">
-          <span class="text-primary-600 font-semibold tracking-wider uppercase text-sm">Contact Us</span>
-          <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">Let's Build the Future of Healthcare</h2>
-          <p class="text-lg text-slate-600 mb-8">
-            Ready to partner with us or support our mission? Reach out and let's discuss how we can work together.
-          </p>
-
-          <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i data-lucide="mail" class="w-6 h-6 text-primary-600"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-slate-900">Email</h3>
-                <a href="mailto:info@ihsanfamilies.com" class="text-slate-600 hover:text-primary-600 transition">info@ihsanfamilies.com</a>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i data-lucide="phone" class="w-6 h-6 text-primary-600"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-slate-900">Phone</h3>
-                <a href="tel:+252613111169" class="text-slate-600 hover:text-primary-600 transition">+252-613-11-11-69</a>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i data-lucide="map-pin" class="w-6 h-6 text-primary-600"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-slate-900">Address</h3>
-                <p class="text-slate-600">Farjano, Sinay Aymis Road<br>Area of Haldoor Hotel, Kismayo, Somalia</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Map -->
-          <div class="mt-8 rounded-2xl overflow-hidden shadow-lg border border-slate-200">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.7464830596943!2d42.5454!3d0.3580!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMjEnMTUnMCJOIDQywrMyMicxMCJX!5e0!3m2!1sen!2sso!4v1700000000000!5m2!1sen!2sso" 
-              width="100%" 
-              height="250" 
-              style="border:0;" 
-              allowfullscreen="" 
-              loading="lazy">
-            </iframe>
-          </div>
-        </div>
-
-        <!-- Contact Form -->
-        <div class="reveal">
-          <div class="bg-white p-8 rounded-3xl shadow-2xl border border-slate-100">
-            <h3 class="text-2xl font-bold text-slate-900 mb-6">Send a Message</h3>
-            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you for your message! We will get back to you soon.');">
-              <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
-                <input type="text" required 
-                       class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition"
-                       placeholder="Your name">
-              </div>
-              
-              <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
-                <input type="email" required 
-                       class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition"
-                       placeholder="you@example.com">
-              </div>
-
-              <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">Message</label>
-                <textarea rows="4" required 
-                          class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition resize-none"
-                          placeholder="How can we help you?"></textarea>
-              </div>
-
-              <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2">
-                Send Message
-                <i data-lucide="send" class="w-5 h-5"></i>
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+  <!-- ==================== GEOGRAPHIC COVERAGE & PILOT AREAS ==================== -->
+  <section class="py-16 bg-primary-50">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <div class="reveal"><span class="text-primary-700 font-bold">Primary operational areas</span><h2 class="text-3xl font-bold text-slate-900 mt-2">Serving rural & peri-urban communities around Kismayo</h2><div class="flex flex-wrap justify-center gap-3 mt-5"><span class="bg-white px-4 py-2 rounded-full shadow text-sm font-medium">Gobweyn</span><span class="bg-white px-4 py-2 rounded-full shadow">Bulagaduud</span><span class="bg-white px-4 py-2 rounded-full shadow">Qamqam</span><span class="bg-white px-4 py-2 rounded-full shadow">Yontoy</span><span class="bg-white px-4 py-2 rounded-full shadow">Wirkoy</span><span class="bg-white px-4 py-2 rounded-full shadow">Sanguni</span></div><p class="mt-6 text-slate-600"><strong>Jubaland State, Somalia</strong> – Estimated <strong>4,500+ households</strong> reached.</p></div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-20 bg-gradient-to-r from-primary-600 to-primary-700 text-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
-    
-    <div class="relative max-w-5xl mx-auto px-6 text-center">
-      <h2 class="text-3xl lg:text-5xl font-bold mb-6">Ready to Transform Healthcare?</h2>
-      <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-        Join us in building a transparent, technology-driven health system for every mother and child in Somalia.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="#contact" class="btn-secondary text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl inline-flex items-center gap-2">
-          Partner With Us
-          <i data-lucide="arrow-right" class="w-5 h-5"></i>
-        </a>
-        <a href="mailto:info@ihsanfamilies.com" class="px-8 py-4 rounded-full font-bold text-lg border-2 border-white/30 text-white hover:bg-white/10 transition backdrop-blur-sm inline-flex items-center gap-2">
-          <i data-lucide="mail" class="w-5 h-5"></i>
-          Email Us
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-slate-900 text-slate-300 py-16">
+  <!-- ==================== IMPACT AND VALUES ==================== -->
+  <section id="impact" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-        <!-- Brand -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-3">
-            <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1769957042/ChatGPT_Image_Feb_1_2026_06_27_22_AM_fojeui.png" 
-                 class="h-10 w-10 object-contain" alt="Ihsan Care">
-            <span class="font-bold text-xl text-white">Ihsan<span class="text-primary-400">Care</span></span>
-          </div>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            Empowering maternal & child healthcare in Somalia with digital innovation, transparency, and trust.
-          </p>
-        </div>
-
-        <!-- Links -->
-        <div>
-          <h4 class="text-white font-bold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href="#about" class="hover:text-primary-400 transition">About Us</a></li>
-            <li><a href="#services" class="hover:text-primary-400 transition">Platform</a></li>
-            <li><a href="#impact" class="hover:text-primary-400 transition">Impact</a></li>
-            <li><a href="#team" class="hover:text-primary-400 transition">Team</a></li>
-            <li><a href="#contact" class="hover:text-primary-400 transition">Contact</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact -->
-        <div>
-          <h4 class="text-white font-bold mb-4">Contact</h4>
-          <ul class="space-y-2 text-sm">
-            <li>info@ihsanfamilies.com</li>
-            <li>+252-613-11-11-69</li>
-            <li>Kismayo, Somalia</li>
-          </ul>
-        </div>
-
-        <!-- Social -->
-        <div>
-          <h4 class="text-white font-bold mb-4">Follow Us</h4>
-          <div class="flex gap-3">
-            <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition">
-              <i data-lucide="facebook" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition">
-              <i data-lucide="twitter" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition">
-              <i data-lucide="linkedin" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition">
-              <i data-lucide="instagram" class="w-5 h-5"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-sm text-slate-500">&copy; 2026 Ihsan Care Ltd. All rights reserved.</p>
-        <p class="text-sm text-slate-500">Designed with ❤️ for a healthier Somalia</p>
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal space-y-5"><span class="text-primary-600 font-semibold">Why Ihsan Care matters</span><h2 class="text-4xl font-bold text-slate-900">Greater accountability, improved service delivery, verifiable impact</h2><p class="text-slate-600">Many health programs face weak monitoring, limited transparency, inefficient service delivery. Ihsan Care bridges gaps with digital innovation + capacity building + community engagement, ensuring donor confidence and better outcomes for mothers/children.</p><div class="flex flex-wrap gap-4"><div class="bg-slate-100 p-3 rounded-xl"><span class="font-bold text-primary-700">Zero fraud incidents</span><br><span class="text-sm">Biometric verification</span></div><div class="bg-slate-100 p-3 rounded-xl"><span class="font-bold text-primary-700">Real-time dashboards</span><br><span class="text-sm">Donor transparency</span></div></div></div>
+        <div class="reveal bg-slate-800 text-white p-8 rounded-3xl"><h3 class="text-2xl font-bold">Organizational Values</h3><ul class="mt-4 space-y-3"><li class="flex gap-2"><i data-lucide="check-circle" class="text-secondary-400"></i> Transparency – traceable resources & processes</li><li class="flex gap-2"><i data-lucide="check-circle"></i> Equity – equal access for all communities</li><li class="flex gap-2"><i data-lucide="check-circle"></i> Innovation – practical tech for real problems</li><li class="flex gap-2"><i data-lucide="check-circle"></i> Integrity – ethical & accountable</li><li class="flex gap-2"><i data-lucide="check-circle"></i> Community Focus – designed around local needs</li></ul></div>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <!-- Image Modal -->
-  <div id="imageModal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
-    <div class="relative max-w-6xl w-full">
-      <button onclick="closeModal()" class="absolute -top-12 right-0 text-white hover:text-primary-400 transition">
-        <i data-lucide="x" class="w-8 h-8"></i>
-      </button>
-      <img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1770898166/ChatGPT_Image_Feb_12_2026_03_04_37_PM_1_fjb133.png" 
-           class="w-full rounded-2xl shadow-2xl" alt="Dashboard Full View">
+  <!-- ==================== PARTNERS / COLLABORATIONS ==================== -->
+  <section id="partners" class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 text-center"><div class="reveal"><h2 class="text-3xl font-bold text-slate-900">Partnership Strategy</h2><p class="text-slate-600 max-w-2xl mx-auto mt-2">Collaborating with government institutions, INGOs, UN agencies, private sector & health tech partners, aligned with national priorities.</p><div class="flex flex-wrap justify-center gap-7 mt-10"><div class="bg-white px-6 py-3 rounded-full shadow-sm">UNICEF (exploratory)</div><div class="bg-white px-6 py-3 rounded-full shadow-sm">Somali Ministry of Health</div><div class="bg-white px-6 py-3 rounded-full shadow-sm">International Donors</div><div class="bg-white px-6 py-3 rounded-full shadow-sm">Regional Health Insurers</div><div class="bg-white px-6 py-3 rounded-full shadow-sm">Private Health Networks</div><div class="bg-white px-6 py-3 rounded-full shadow-sm">Global Digital Health Partners</div></div></div></div>
+  </section>
+
+  <!-- ==================== TEAM / LEADERSHIP (accurate to PDF) ==================== -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 text-center"><div class="reveal"><span class="text-primary-600 font-bold">Leadership</span><h2 class="text-4xl font-bold text-slate-900 mt-2">Somali professionals driving change</h2><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12"><div><img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1771590360/WhatsApp_Image_2026-02-20_at_15.20.33_eiia6p.jpg" class="w-40 h-40 rounded-full mx-auto object-cover border-4 border-primary-100"><h3 class="font-bold mt-3">Eid Abdullahi</h3><p class="text-primary-600">Founder & CEO</p></div><div><img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1770478513/Screenshot_from_2026-02-07_18-34-50_amlzki.png" class="w-40 h-40 rounded-full mx-auto object-cover border-4 border-primary-100"><h3 class="font-bold mt-3">Zakaria Abdikar</h3><p class="text-primary-600">ICT Lead</p></div><div><img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1770478736/Screenshot_from_2026-02-07_18-38-36_m9fyjb.png" class="w-40 h-40 rounded-full mx-auto object-cover border-4 border-primary-100"><h3 class="font-bold mt-3">Rukia Jamac</h3><p class="text-primary-600">Operations Lead</p></div><div><img src="https://res.cloudinary.com/dzflw2ka9/image/upload/v1771928781/eng_dubad_hfwntl.jpg" class="w-40 h-40 rounded-full mx-auto object-cover border-4 border-primary-100"><h3 class="font-bold mt-3">Eng Abdi Hussein</h3><p class="text-primary-600">Program Director</p></div></div><p class="mt-6 italic text-slate-500">Executive Director: Eng. Abdi Hussein – committed to building sustainable public health systems.</p></div></div>
+  </section>
+
+  <!-- ==================== STRATEGIC PRIORITIES 2025-2027 ==================== -->
+  <section class="py-14 bg-primary-50">
+    <div class="max-w-6xl mx-auto px-6 text-center reveal"><h3 class="text-2xl font-bold text-slate-800">Strategic Priorities (2025-2027)</h3><div class="flex flex-wrap justify-center gap-4 mt-6"><span class="bg-white px-5 py-2 rounded-full shadow-sm">📈 Scale digital MNCH platforms</span><span class="bg-white px-5 py-2 rounded-full shadow-sm">🌍 Expand beneficiary registration in rural districts</span><span class="bg-white px-5 py-2 rounded-full shadow-sm">🏥 Strengthen health facility partnerships</span><span class="bg-white px-5 py-2 rounded-full shadow-sm">📊 Build robust donor data systems</span><span class="bg-white px-5 py-2 rounded-full shadow-sm">📚 Integrated health & education programs</span></div></div>
+  </section>
+
+  <!-- ==================== CONTACT (email/phone/address) ==================== -->
+  <section id="contact" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+      <div class="reveal"><h2 class="text-3xl font-bold">Get in touch</h2><p class="mt-3 text-slate-600">Head Office: Kismayo, Somalia – Farjano, Sinay Aymis Road, Area of Haldoor Hotel</p><div class="mt-6 space-y-4"><div class="flex items-center gap-3"><i data-lucide="mail" class="text-primary-600"></i><span>info@ihsancare.org / info@ihsanfamilies.com</span></div><div class="flex items-center gap-3"><i data-lucide="phone"></i><span>+252 613-11-11-69</span></div><div class="flex items-center gap-3"><i data-lucide="globe"></i><span>www.ihsanfamilies.com</span></div></div><div class="mt-8 bg-slate-100 p-4 rounded-2xl"><iframe width="100%" height="220" style="border:0; border-radius:1rem" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.7464830596943!2d42.5454!3d0.3580!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMjEnMTUnMCJOIDQywrMyMicxMCJX!5e0!3m2!1sen!2sso!4v1700000000000"></iframe></div></div>
+      <div class="reveal bg-slate-50 p-8 rounded-3xl shadow"><h3 class="text-2xl font-bold">Partner or Donate</h3><form onsubmit="event.preventDefault();alert('Thank you — Ihsan Care team will respond within 48 hours. Your support advances Somali digital health.')"><div class="mb-3"><input type="text" placeholder="Full name" class="w-full p-3 rounded-xl border" required></div><div class="mb-3"><input type="email" placeholder="Email" class="w-full p-3 rounded-xl border" required></div><div class="mb-3"><textarea rows="3" placeholder="Message / partnership inquiry" class="w-full p-3 rounded-xl border"></textarea></div><button class="bg-primary-600 hover:bg-primary-700 text-white w-full py-3 rounded-xl font-bold">Send Message →</button></form><p class="text-xs text-center mt-4">We align with national priorities & humanitarian-development nexus.</p></div>
     </div>
-  </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 py-12"><div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm"><div>© 2026 Ihsan Care – Local NGO committed to accountable & equitable healthcare.</div><div>📍 Kismayo, Somalia | ✉️ info@ihsancare.org | ☎️ +252 613 111169</div></div></footer>
 
-  <!-- Scripts -->
   <script>
-    // Initialize Lucide icons
     lucide.createIcons();
-
-    // Modal functions
-    function openModal() {
-      document.getElementById('imageModal').classList.remove('hidden');
-      document.getElementById('imageModal').classList.add('flex');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      document.getElementById('imageModal').classList.add('hidden');
-      document.getElementById('imageModal').classList.remove('flex');
-      document.body.style.overflow = 'auto';
-    }
-
-    // Close modal on outside click
-    document.getElementById('imageModal')?.addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
-
-    // GSAP ScrollTrigger animations
     gsap.registerPlugin(ScrollTrigger);
-
-    // Reveal animations
-    const reveals = document.querySelectorAll('.reveal');
-    reveals.forEach((reveal, index) => {
-      gsap.fromTo(reveal, 
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay: index * 0.1,
-          scrollTrigger: {
-            trigger: reveal,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-    });
-
-    // Counter animation
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach(counter => {
-      const target = parseInt(counter.getAttribute('data-target'));
-      gsap.to(counter, {
-        innerHTML: target,
-        duration: 2,
-        snap: { innerHTML: 1 },
-        scrollTrigger: {
-          trigger: counter,
-          start: 'top 85%'
-        }
+    document.querySelectorAll('.reveal').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el, start: 'top 85%', onEnter: () => el.classList.add('visible'), once: true
       });
     });
-
-    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault(); const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
   </script>
-
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "MedicalOrganization",
-    "name": "Ihsan Families",
-    "alternateName": "Ihsan Care",
-    "url": "https://www.ihsanfamilies.com",
-    "logo": "https://res.cloudinary.com/dzflw2ka9/image/upload/v1769957042/ChatGPT_Image_Feb_1_2026_06_27_22_AM_fojeui.png",
-    "description": "Somalia's first digital health platform for maternal and child healthcare using AI, biometrics, and transparent donor-driven systems.",
-    "foundingDate": "2025",
-    "areaServed": {
-      "@type": "Country",
-      "name": "Somalia"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "info@ihsanfamilies.com",
-      "telephone": "+252-613-11-11-69",
-      "contactType": "Partnerships & Donor Relations"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Farjano, Sinay Aymis Road, Area of Haldoor Hotel",
-      "addressLocality": "Kismayo",
-      "addressRegion": "Jubaland",
-      "addressCountry": "SO"
-    }
-  }
-  </script>
+  <!-- schema.org (same as PDF tone) -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"NGO","name":"Ihsan Care","alternateName":"Ihsan Families","url":"https://www.ihsanfamilies.com","description":"Somali-led LNGO transforming maternal & child health via biometrics, digital health systems, capacity building and donor dashboards.","address":{"@type":"PostalAddress","addressLocality":"Kismayo","addressRegion":"Jubaland","addressCountry":"SO"},"contactPoint":{"@type":"ContactPoint","email":"info@ihsancare.org","telephone":"+252613111169"}}</script>
 </body>
 </html>
